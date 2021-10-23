@@ -1,0 +1,9 @@
+version: "3"
+services:
+  server:
+    build: ./services/server
+    container_name: reciper
+    image: "reciper"
+
+volumes:
+  vol:

@@ -1,0 +1,26 @@
+name: Build and push server Docker image
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'services/server/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker build and push
+        run: |
+          docker login ${DOCKER_REGISTRY_DOMAIN} --username "${DOCKER_REGISTRY_USERNAME}" --password "${DOCKER_REGISTRY_PASSWORD}"
+          docker-compose build server
+          VER=$(cat ./services/server/app/package.json | jq -r .version)
+          docker tag reciper ${DOCKER_REGISTRY_DOMAIN}/${DOCKER_REGISTRY_USERNAME}/reciper:$VER
+          docker push ${DOCKER_REGISTRY_DOMAIN}/${DOCKER_REGISTRY_USERNAME}/reciper:$VER
+        env:
+          DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          DOCKER_REGISTRY_DOMAIN: ${{ secrets.DOCKER_REGISTRY_DOMAIN }}
+          DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}

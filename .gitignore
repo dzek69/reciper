@@ -1,0 +1,13 @@
+/.idea/
+node_modules/
+temp/
+docs/
+dist/
+esm/
+
+*.tsbuildinfo
+*.tgz
+*.log
+
+*.env
+!*.example.env

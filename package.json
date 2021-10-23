@@ -1,0 +1,26 @@
+{
+  "name": "reciper-dev",
+  "version": "0.0.0",
+  "repository": "git@github.com:dzek69/reciper.git",
+  "author": "Jacek Nowacki",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint --report-unused-disable-directives 'services/server/app/src/**/*.ts' 'services/server/app/src/*.ts'",
+    "lint:fix": "yarn lint --fix",
+    "start:only": "docker-compose -f dev-compose.yml up -d",
+    "start": "yarn start:only && yarn logs",
+    "logs": "docker-compose -f dev-compose.yml logs --tail 10 -f",
+    "restart": "docker-compose -f dev-compose.yml restart",
+    "build": "docker-compose -f dev-compose.yml build",
+    "stop": "docker-compose -f dev-compose.yml down"
+  },
+  "devDependencies": {
+    "@dzek69/eslint-config-base": "^2.1.0",
+    "@dzek69/eslint-config-typescript": "^0.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "eslint": "^7.14.0",
+    "husky": "^4.2.3",
+    "typescript": "^4.2.4"
+  }
+}

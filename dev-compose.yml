@@ -1,0 +1,18 @@
+version: "3"
+services:
+  server:
+    build:
+      context: ./services/server
+      dockerfile: "dev.Dockerfile"
+    container_name: reciper
+    image: "reciper"
+    ports:
+      - "9900:9900"
+    env_file:
+      - ".server.dev.env"
+    command: ["/home/node/app/node_modules/.bin/nodemon", "src", "--watch", "src"]
+    volumes:
+      - "./services/server/app/src:/home/server/app/src"
+
+volumes:
+  vol:
